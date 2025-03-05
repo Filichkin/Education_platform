@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
 
-from constants import MAX_LENGTH
+from .constants import MAX_LENGTH
 
 
 class Subject(models.Model):
@@ -67,7 +67,7 @@ class Module(models.Model):
     course = models.ForeignKey(
         Course,
         related_name='modules',
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
         verbose_name='Курс модуля'
     )
     title = models.CharField(
