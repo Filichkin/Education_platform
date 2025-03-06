@@ -63,7 +63,7 @@ class Course(models.Model):
 
     def __str__(self):
         return self.title
-    
+
 
 class Module(models.Model):
     course = models.ForeignKey(
@@ -94,7 +94,10 @@ class Content(models.Model):
     )
     content_type = models.ForeignKey(
         ContentType,
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
+        limit_choices_to={
+            'model__in': ('text', 'video', 'image', 'file')
+        }
     )
     object_id = models.PositiveIntegerField()
     item = GenericForeignKey(
@@ -102,3 +105,41 @@ class Content(models.Model):
         'object_id'
     )
 
+
+class ItemBase(models.Model):
+    owner = models.ForeignKey(
+        User,
+        related_name='%(class)s_related',
+        on_delete=models.CASCADE,
+        verbose_name='Автор курса'
+    )
+    title = models.CharField(
+        max_length=MAX_LENGTH,
+        verbose_name='Название'
+        )
+    created = models.DateTimeField(
+        auto_now_add=True,
+        verbose_name='Дата и время создания'
+        )
+    updated = models.DateTimeField(
+        auto_now=True,
+        verbose_name='Дата и время обновления'
+        )
+
+    class Meta:
+        abstract = True
+
+    def __str__(self):
+        return self.title
+
+
+class Text(ItemBase):
+    content = models.TextField()
+
+
+class File(ItemBase):
+    file = models.FileField(upload_to='files')
+
+
+class Image(ItemBase):
+    file = models.FileField(upload_to='images')
