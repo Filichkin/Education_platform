@@ -4,6 +4,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.db import models
 
 from .constants import MAX_LENGTH
+from .fields import OrderField
 
 
 class Subject(models.Model):
@@ -76,14 +77,20 @@ class Module(models.Model):
         max_length=MAX_LENGTH,
         verbose_name='Название модуля'
     )
+    order = OrderField(
+        blank=True,
+        for_fields=['course'],
+        verbose_name='Порядковый номер'
+    )
     description = models.TextField(blank=True)
 
     class Meta:
         verbose_name = 'Модуль'
         verbose_name_plural = 'Модули'
+        ordering = ['order']
 
     def __str__(self):
-        return self.title
+        return f'{self.order}. {self.title}'
 
 
 class Content(models.Model):
@@ -104,6 +111,14 @@ class Content(models.Model):
         'content_type',
         'object_id'
     )
+    order = OrderField(
+        blank=True,
+        for_fields=['module'],
+        verbose_name='Порядковый номер'
+    )
+
+    class Meta:
+        ordering = ['order']
 
 
 class ItemBase(models.Model):
