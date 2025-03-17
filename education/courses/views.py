@@ -15,6 +15,7 @@ from django.views.generic.list import ListView
 from .forms import ModuleFormSet
 from .mixins import OwnerCourseMixin, OwnerCourseEditMixin
 from .models import Content, Course, Module, Subject
+from students.forms import CourseEnrollForm
 
 
 class CourseListView(TemplateResponseMixin, View):
@@ -46,6 +47,13 @@ class CourseListView(TemplateResponseMixin, View):
 class CourseDetailView(DetailView):
     model = Course
     template_name = 'courses/course/detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['enroll_form'] = CourseEnrollForm(
+            initial={'course': self.object}
+        )
+        return context
 
 
 class ModuleOrderView(CsrfExemptMixin, JsonRequestResponseMixin, View):
