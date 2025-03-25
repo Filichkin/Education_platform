@@ -13,16 +13,9 @@ class CourseViewSet(viewsets.ReadOnlyModelViewSet):
     pagination_class = StandardPagination
 
 
-class SubjectListView(generics.ListAPIView):
+class SubjectViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Subject.objects.annotate(
         total_courses=Count('courses')
         )
     serializer_class = SubjectSerializer
     pagination_class = StandardPagination
-
-
-class SubjectDetailView(generics.RetrieveAPIView):
-    queryset = Subject.objects.annotate(
-        total_courses=Count('courses')
-        )
-    serializer_class = SubjectSerializer
