@@ -11,15 +11,5 @@ router.register('courses', views.CourseViewSet)
 router.register('subjects', views.SubjectViewSet)
 
 urlpatterns = [
-    path(
-        'subjects/',
-        views.SubjectListView.as_view(),
-        name='subject_list'
-    ),
-    path(
-        'subjects/<pk>/',
-        views.SubjectDetailView.as_view(),
-        name='subject_detail'
-    ),
     path('', include(router.urls)),
 ]
