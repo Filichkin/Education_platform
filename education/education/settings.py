@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'embed_video',
     'debug_toolbar',
     'rest_framework',
+    'chat.apps.ChatConfig',
 ]
 
 MIDDLEWARE = [
