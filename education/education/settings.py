@@ -27,6 +27,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'daphne',
     'courses.apps.CoursesConfig',
     'students.apps.StudentsConfig',
     "django.contrib.admin",
