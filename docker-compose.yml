@@ -2,7 +2,7 @@ services:
 
   web: 
     build: .
-    command: python /code/educa/manage.py runserver 0.0.0.0:8000
+    command: python /code/education/manage.py runserver 0.0.0.0:8000
     restart: always
     volumes:
       - .:/code
