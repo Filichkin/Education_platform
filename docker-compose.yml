@@ -37,3 +37,12 @@ services:
     depends_on:
          - db
          - cache
+
+  nginx:
+    image: nginx:1.25.5
+    restart: always
+    volumes:
+      - ./config/nginx:/etc/nginx/templates
+      - .:/code
+    ports:
+      - "80:80"
