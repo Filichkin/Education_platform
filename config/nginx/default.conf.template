@@ -11,4 +11,11 @@ server {
         include    /etc/nginx/uwsgi_params;
         uwsgi_pass   uwsgi_app;
     } 
+
+    location /static/ {
+        alias /code/education/static/;
+    }
+    location /media/ {
+        alias /code/education/media/;
+    }
 }
